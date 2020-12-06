@@ -1,8 +1,8 @@
 #include<stdio.h>
 #include<string.h>
-#include "get_IP.c"
+#include "get_Info.c"
 
-#define MAX 120
+#define MAX 130
 #define IP_LENGTH 15
 #define DATE_LENGTH 20
 #define HITTIMES_LENGTH 6
@@ -12,7 +12,7 @@ struct IP_info
 {
     char Ip[IP_LENGTH];
     char Date[DATE_LENGTH];
-    int HitTimes;
+    char HitTimes[HITTIMES_LENGTH];
 };
 
 int main(void)
@@ -22,6 +22,7 @@ int main(void)
     FILE * readfile_fp;                     //创建一个指针，用于读取文件
     char * ip_ptr;                 //创建一个指针，用于将读取的IP写入结构体成员变量 first_line.ip
     char * date_ptr;
+    char * hittimes_ptr;
 
     //打开文件
     readfile_fp = fopen("file.txt", "r");
@@ -49,4 +50,9 @@ int main(void)
     date_ptr = first_line.Date;
     get_date(temp_receive_line, date_ptr, DATE_LENGTH);
     puts(first_line.Date); 
+
+    //提取命中数
+    hittimes_ptr = first_line.HitTimes;
+    get_hitTimes(temp_receive_line, hittimes_ptr, HITTIMES_LENGTH);
+    puts(first_line.HitTimes); 
 }
