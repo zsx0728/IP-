@@ -57,48 +57,48 @@ char * get_hitTimes(char * ch, char * ptr, int max_hittimes_bit)
     int i=0,j=0;
     for (i = 0 ; i < strlen(ch) ; i++ )
     {
-        printf("The %d cycle\n",i);
+        //printf("The %d cycle\n",i);
         if ( (ch[i] == ' ') && isNumber(ch[i+1]) )
 	{	
-            printf("run if\n");
+           // printf("run if\n");
             small_location = i;
             for (j=1;j<=max_hittimes_bit;j++)
             {
                 if (isNumber(ch[i+j]) && ch[i+j+1] == ' ')
                 {
-                    printf("run 1 choice,j = %d\n",j);
+                    //printf("run 1 choice,j = %d\n",j);
                     large_location = i + j;
-                    printf("small_location is %d, large_location is %d\n", small_location, large_location);
+                    //printf("small_location is %d, large_location is %d\n", small_location, large_location);
                     break;
                 }
                 else if (isNumber(ch[i+j]) && isNumber(ch[i+j+1]))
                 {
-                    printf("run 2 choice,j = %d\n",j);
-                    printf("small_location is %d, large_location is %d\n", small_location, large_location);
+                    //printf("run 2 choice,j = %d\n",j);
+                    //printf("small_location is %d, large_location is %d\n", small_location, large_location);
                     continue;
                 }
                 else
                 {
                     small_location = 0;
-                    printf("run 3 choice, ch[i+j]=%c, ch[i+j+1]=%c, j = %d\n",ch[i+j],ch[i+j+1],j);
-                    printf("small_location is %d, large_location is %d\n", small_location, large_location);
+                    //printf("run 3 choice, ch[i+j]=%c, ch[i+j+1]=%c, j = %d\n",ch[i+j],ch[i+j+1],j);
+                    //printf("small_location is %d, large_location is %d\n", small_location, large_location);
                     break;
                 }
             }
 	}
 	else
         {
-            printf("run else\n");
+            //printf("run else\n");
 	    continue;
         }
     }
 
-    printf("ch[small_location]=%c\n", ch[small_location]);
-    printf("ch[small_location+1]=%c\n", ch[small_location+1]);
-    printf("ch[small_location+2]=%c\n", ch[small_location+2]);
-    printf("ch[small_location+3]=%c\n", ch[small_location+3]);
-    printf("ch[small_location+4]=%c\n", ch[small_location+4]);
-    printf("small_location=%d, large_location=%d\n",small_location ,large_location);
+    //printf("ch[small_location]=%c\n", ch[small_location]);
+    //printf("ch[small_location+1]=%c\n", ch[small_location+1]);
+    //printf("ch[small_location+2]=%c\n", ch[small_location+2]);
+    //printf("ch[small_location+3]=%c\n", ch[small_location+3]);
+    //printf("ch[small_location+4]=%c\n", ch[small_location+4]);
+    //printf("small_location=%d, large_location=%d\n",small_location ,large_location);
     for (i=small_location+1,j=0;i<=large_location;i++,j++)
     {
         * (ptr+j) = ch[i];
