@@ -3,7 +3,7 @@
 #include "get_Info.c"
 
 #define LINE_MAX_BYTE 150
-#define IP_LENGTH 15
+#define IP_LENGTH 16
 #define DATE_LENGTH 20
 #define HITTIMES_LENGTH 6
 #define MAX_LINE 2048
@@ -26,7 +26,7 @@ int main(void)
     char * ip_ptr;                 //创建一个指针，用于将读取的IP写入结构体成员变量 oldfile_Lines[MAX_LINE].ip
     char * date_ptr;
     char * hittimes_ptr;
-    int count=0;
+    int count=0, oldfile_lines=0, newfile_lines=0;
  
     //读取旧文件的IP，日期，命中数
     //打开文件
@@ -56,6 +56,7 @@ int main(void)
     }
 
     fclose(readfile_fp);
+    oldfile_lines = count;
 
     //读取新文件的IP，日期，命中数
     count=0;
@@ -87,6 +88,7 @@ int main(void)
     }
 
     fclose(readfile_fp);
+    newfile_lines = count;
 
     //暴力比较法，循环提取旧文件的一行，与新文件逐行比较，如果IP相同，写入文件 /tmp/final.txt。
     int count_oldfile=0, count_newfile=0;
@@ -95,16 +97,16 @@ int main(void)
     old_ptr = &oldfile_Lines[0];
     new_ptr = &newfile_Lines[0];
 
-    while ( (count_oldfile < 10) && ( (old_ptr->Ip) != NULL) )
+    while ( (count_oldfile < oldfile_lines) && (oldfile_Lines[count_oldfile].Ip != NULL) )
     {
-        while ( (count_newfile < 10) && ( (new_ptr->Ip) != NULL) )
+        while ( (count_newfile < newfile_lines) && (newfile_Lines[count_newfile].Ip != NULL) )
 	{
-	    if ( strcmp( old_ptr->Ip, new_ptr->Ip ) == 0 )
+	    if ( (strcmp(old_ptr->Ip, new_ptr->Ip) == 0) && (strcmp(old_ptr->HitTimes, new_ptr->HitTimes) == 0) )
 	    {
                 writefile_fp = fopen("/tmp/final.txt", "a+");
-		fprintf(writefile_fp,old_ptr->Ip);
-		fprintf(writefile_fp," ");
-		fprintf(writefile_fp,old_ptr->HitTimes);
+		fprintf(writefile_fp, new_ptr->Ip);
+		//fprintf(writefile_fp," ");
+		//fprintf(writefile_fp,old_ptr->HitTimes);
 		fprintf(writefile_fp,"\n");
 		fclose(writefile_fp);
 		break;
@@ -120,5 +122,4 @@ int main(void)
 	count_oldfile++;
 	old_ptr++;
     }
-
 }
